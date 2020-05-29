@@ -3,8 +3,8 @@
 此项目用以记录跟随sakura师傅学习的经历，和平时自己学习的点滴。项目不会包括具体的知识，只是一个类似周记的记录，用来给自己看。
 
 ---
-<a herf="#week1">第一周</a><br />
-<a herf="#week2">第二周</a><br />
+[第一周](#week1)<br />
+[第二周](#week2)<br />
 
 ### <h3 id="week1">5.17-5.22</h3>
 - STL<br />
@@ -82,5 +82,5 @@
     资料地址：https://gpfault.net/posts/asm-tut-2.txt.html <br />
 
 - 测试：<br>
-    <a herf = "./test/test1.md">题目</a><br />
-    <a herf = "./solution/test1">解答</a>
+    [题目](./test/test1.md)<br />
+    [解答](./solution/test1/vector.cpp)</a>
