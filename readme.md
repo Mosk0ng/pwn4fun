@@ -3,30 +3,84 @@
 此项目用以记录跟随sakura师傅学习的经历，和平时自己学习的点滴。项目不会包括具体的知识，只是一个类似周记的记录，用来给自己看。
 
 ---
-<details>
-    <summary>5.15-5.29</summary>
-    - STL
-        目标：熟悉c++语法，了解STL标准库的实现。</br>
-        进度：allocator-> iterator-> basefunction -> list -> vector->hashtable</br>
-        收获：</br>
-            - <a herf = "https://www.xuebuyuan.com/1919018.html">traits的使用</a></br>
-            - <a herf = "https://blog.csdn.net/qq_25343557/article/details/89110319">自平衡树算法（AVL）</a></br>
-            - 红黑树（TODO）
-            - vector erase存在的漏洞<br>
-                ```
-                  iterator erase(iterator position) {
-                        if (position + 1 != end())
-                        {
-                        //把从 position+1 到 finish 之间的元素一个一个复制到从 position 指向
-                        //的空间，这样，就把 position 原来指向的元素个覆盖了
-                        copy(position + 1, finish, position);
-                        }
-                        --finish;
-                        destroy(finish);
-                        return position;
-                    }
+<a herf="#week1">第一周</a><br />
+<a herf="#week2">第二周</a><br />
 
-                ```
-    - emulator
-    - csapp
-</details>
+### <h3 id="week1">5.17-5.22</h3>
+- STL<br />
+目标：熟悉c++语法，了解STL标准库的实现。<br />
+进度：allocator-> iterator-> basefunction -> list -> vector->hashtable<br />
+收获：<br />
+    - <a herf = "https://www.xuebuyuan.com/1919018.html">traits的使用</a><br />
+    - <a herf = "https://blog.csdn.net/qq_25343557/article/details/89110319">自平衡树算法（AVL）</a><br />
+    - 红黑树（TODO）
+    - vector erase可能造成的漏洞<br>
+    
+        ```
+                iterator erase(iterator position) {
+                    if (position + 1 != end())
+                    {
+                    copy(position + 1, finish, position);
+                    }
+                    --finish;
+                    destroy(finish);
+                    return position;
+                }
+        ```
+        问题出在，如果vector中存放的是指针的话，copy函数只进行了浅拷贝，导致末尾的指针在vector中超过一次出现，可能会造成UAF。<br />
+        poc
+        ```
+        #include <iostream>
+        #include <vector>
+        #include <cstdlib>
+        using namespace std;
+
+        class mypair{
+        public:
+            char * ptr;
+            mypair(){ ptr = (char*)malloc(0x40);}
+            ~mypair(){ cout<<"destory this"<<endl;free(ptr);} 
+        };
+
+        int main(){
+            vector<mypair> vec;
+            mypair*  ptr;
+
+            for(int i = 0; i < 4; i++){
+                ptr = new mypair();
+                vec.push_back(*ptr);
+            }
+
+            vector<mypair>::iterator it = vec.begin();
+            it = vec.begin();
+            vec.erase(it);
+            it = vec.begin();
+            vec.erase(it);
+            return 0;
+        }
+        ```      
+
+### <h3 id="week2">5.22-5.29</h3>
+这周忙了一些实验和大作业，做的工作稍微少了点（x
+
+- cs143
+    - 进度： 第三周 18节
+    - 收获：了解了词法分析的基本方法，自动机的原理， NFA->DFA
+
+- csapp
+    进度：1-4章 7章 8章（部分）<br />
+    有收获的知识点：
+    - 数据的表示(x)翻译(√)
+    - 多级流水设计
+    - 静态链接和动态链接，特别是静态链接
+    - 异常（TODO）
+
+- emulator<br />
+    qbx是一个用宏编程写的简单的emulator。<br />
+    我的主要工作就是读懂现有的代码，并且为它补全branch和运算的指令。<br />
+    项目地址：https://github.com/Mosk0ng/qbxvm <br />
+    资料地址：https://gpfault.net/posts/asm-tut-2.txt.html <br />
+
+- 测试：<br>
+    <a herf = "./test/test1.md">题目</a><br />
+    <a herf = "./solution/test1">解答</a>
