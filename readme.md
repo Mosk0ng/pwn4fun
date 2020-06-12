@@ -5,6 +5,8 @@
 ---
 [第一周](#week1)<br />
 [第二周](#week2)<br />
+[第三周](#week3)<br />
+[第四周](#week4)<br />
 
 ### <h3 id="week1">5.17-5.22</h3>
 - STL<br />
@@ -84,3 +86,35 @@
 - 测试：<br>
     [题目](./test/test1.md)<br />
     [解答](./solution/test1/vector.cpp)</a>
+
+### <h3 id="week3">5.29-6.5</h3>
+
+开始做compiler的部分，主要是看网课<br />
+[哈工大视频](https://www.icourse163.org/learn/HIT-1002123007?tid=1450215473#/learn/content?type=detail&id=1214538555&cid=1218322632&replay=true)
+
+一直看完了语法分析的部分，然后写(抄)了斯坦福cs143的lab前两个任务，参考的是这个项目<br />
+[参考项目](https://github.com/skyzluo/CS143-Compilers-Stanford/blob/master)
+
+对这个东西还是不是很熟悉，基本就是照抄了，边抄便理解。
+
+看了两本书，编译原理（龙书）和flex与bison，都是浅浅的看了，下一周会重点看一下。
+
+这周由于有考试和论文，工作少了一些,有两天的笔记。
+看了一个`avast！`的洞，具体在6.3的笔记里
+
+[6.2笔记](./days/2020_6_2.md) <br/>
+[6.3笔记](./days/2020_6_3.md) <br/>
+
+### <h3 id="week4">6.6-6.12</h3>
+
+细看龙书和flex和bison，分析flex和bison生成的代码，写了一些test的代码。
+分析报告<br />
+[flex_bison生成代码的分析报告(初步)](./days/2020_6_11.md)
+
+大概的分析了逻辑，具体的数据结构方面的深入分析，还得补完龙书。
+
+`codebase`不太行，听`sakura`师傅的，先去补一下`scip`，`compiler`先放一放
+
+
+
+
