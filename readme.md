@@ -8,6 +8,8 @@
 [第三周](#week3)<br />
 [第四周](#week4)<br />
 [第五周](#week5)<br />
+[第六周](#week6)<br />
+[第七周](#week7)<br />
 
 ### <h3 id="week1">5.17-5.22</h3>
 - STL<br />
@@ -133,7 +135,7 @@ tctf以及复现。
 
 看了sakura师傅发的portal fuzz的文章，对fuzz所知甚少，有点看不懂。
 
-### <h3 id="week6">6.21-6.28</h3>
+### <h3 id="week7">6.29-7.5</h3>
 
 Assignment : https://github.com/Mosk0ng/cs143<br />
 大部分都是抄完看代码（x.
