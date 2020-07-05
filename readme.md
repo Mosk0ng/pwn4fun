@@ -7,6 +7,7 @@
 [第二周](#week2)<br />
 [第三周](#week3)<br />
 [第四周](#week4)<br />
+[第五周](#week5)<br />
 
 ### <h3 id="week1">5.17-5.22</h3>
 - STL<br />
@@ -115,6 +116,38 @@
 
 `codebase`不太行，听`sakura`师傅的，先去补一下`scip`，`compiler`先放一放
 
+### <h3 id="week5">6.13-6.20</h3>
+
+- compiler PA4
+- web大作业， 学校的算法实验和其他实验（x
 
 
+### <h3 id="week6">6.21-6.28</h3>
 
+读 PA4的代码，分析代码设计的思路<br />。
+笔记：[PA4—代码阅读报告](./days/2020_6_26.md) <br />
+
+计算机网络实验，考试。
+
+tctf以及复现。
+
+看了sakura师傅发的portal fuzz的文章，对fuzz所知甚少，有点看不懂。
+
+### <h3 id="week6">6.21-6.28</h3>
+
+Assignment : https://github.com/Mosk0ng/cs143<br />
+大部分都是抄完看代码（x.
+
+队里要求确定方向，暂时选择了`IoT`， 学习了一些相关的知识，参考的资料如下：<br />
+[iot_learn](https://github.com/H4lo/IOT_Articles_Collection)
+
+看了一个洞：<br />
+[ZombieVPN](https://0xsha.io/posts/zombievpn-breaking-that-internet-security)
+这个洞存在于杀软的vpn服务中，成因看起来是一个反序列化造成的`data-only attack`。但是由于是商业软件，不太可能招到漏洞版本复现了（x
+
+翻译阅读了群里发的一篇文章(大部分是机翻，少部分做了一些修改，感觉读不通又不知道怎么翻译的地方，就注释了)：
+[JIT_ATTACK](./days/Attacking_Clientside_JIT_Compilers_Paper.zh-CN.docx) <br />
+做了一些注释，文章只提到了一个攻击思路，没有具体的攻击方法介绍，缓解机制倒是介绍的好多（x。大部分攻击的思路也都不是很新的思路，包括`ROP`,
+`ROP + gaJIT`, `JIT Spray`， 等等。
+
+另一道clang的题目看了一下，好像是用`clang`编译的一些特性，比如复用字符什么的绕过过滤。因为对clang不熟悉，就没有仔细看了（x。
