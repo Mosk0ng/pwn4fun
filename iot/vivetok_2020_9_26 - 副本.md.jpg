@@ -1,0 +1,54 @@
+# vivetok 摄像头栈溢出漏洞复现
+
+
+## Quick Start
+漏洞poc: https://www.exploit-db.com/exploits/44001
+
+大部分网上的wp都是参考这篇文章：https://xz.aliyun.com/t/5054
+
+漏洞固件和环境(我自己使用的环境)： https://pan.baidu.com/s/1l43s8MrRk1AiaDyuD4i5KQ  提取码：ke88
+
+## Environment
+大部分问题都可以在[文章](https://xz.aliyun.com/t/5054)中得到解决。不过根据文章中的环境配置，有几个比较麻烦的点：
+1. 需要使用qemu搭建arm的环境，然后在qemu中使用gdbserver，在host中使用gdb-multiarch进行双机调试。此处gdbserver需要编译成armv5架构。github中有一个编译好的静态的gdb+gdbserver的项目，但是改项目中没有armv5架构。自行编译又出了一些奇奇怪怪的问题。
+
+    解决方法：使用了一块raspberry 3b+ 进行环境搭建。
+
+2. 解决找不倒共享库的问题， 在chroot并运行httpd服务时，出现了找不倒共享库的问题。实际上这些共享库都在./lib/ 和 ./usr/lib/ 文件夹下，只是不知道为什么链接没有了.
+
+    解决方法：自己创建链接或者直接重命名共享库即可。
+
+3. 解决chroot到固件根目录后报错找不倒/bin/bash的问题。
+    
+    解决方法：cp /bin/bash ./bin ，然后把bash需要的共享库也放到固件的lib中。
+
+4. 其他问题参见上文给出的链接。
+
+## 漏洞点
+
+```c
+// 0x0018538
+v35 = strstr(haystack, "Content-Length");
+v36 = strchr(v35, 10);
+v37 = strchr(v35, 58);
+strncpy(dest, v37 + 1, v36 - (v37 + 1));// *
+```
+漏洞很简单，strncpy的size参数使用不当，而dest处于bp-0x38的位置，很容易造成栈溢出。根据crash信息，可以控制r4-r11, pc的值，完成利用。
+
+## EXP
+
+有两个需要注意的点：
+
+1. iot设备为了提高性能一般是不开启aslr的
+2. exp中不能出现`\x00`， 否则会被`strncpy`截断
+
+上文的文章中给出了一个exp，修改之后发现在我自己的环境下，会crash在system函数中。还不清楚是什么原因，不过经过测试，可以执行rop链，虽然exp没有改出来，但是漏洞复现的工作基本完成，如果有师傅搞懂了这个地方，还请告知：moskong@qq.com
+
+## 总结
+1. 主要的难点还是搭环境(x， 不过要坚信，固件在设备上能跑起来，那一定有能跑起来的道理
+2. 真机调试比qemu省时省力。
+
+
+
+
+
