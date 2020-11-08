@@ -156,6 +156,7 @@ Assignment : https://github.com/Mosk0ng/cs143<br />
 
 
 
+## Announce
 之后的学习经历不再在`README.md`中更新，会以日报的形式存放在`days`目录下。
 
 [LINK](./days/)
