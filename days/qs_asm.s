@@ -1,0 +1,108 @@
+global _start
+
+section .data
+    array : dd 6,1,2,7,9,3,4,5,10,8
+
+section .text
+    _start:
+        mov rdi, array
+        xor rsi, rsi
+        mov rdx, 9
+        call quicksort
+        call _exit
+    swap:
+        ; rdi:array, rsi:i, rdx:j
+        mov eax, DWORD [rdi+4*rsi]
+        mov ebx, DWORD [rdi+4*rdx]
+        mov DWORD [rdi + 4*rsi], ebx
+        mov DWORD [rdi + 4*rdx], eax
+        ret
+
+    quicksort:
+        ; rdi: array, rsi:begin, rdx: end
+        cmp rsi, rdx
+        jnb _ret
+
+        mov r8, rsi ; i
+        mov r10, r8;  begin
+        mov r9, rdx ; j
+        mov r11, r9 ; end
+
+        _main_loop:
+            cmp r8, r9
+            je _swap_ok
+
+            _j_loop:
+                cmp r8, r9
+                je _swap_ok
+                mov eax, DWORD [rdi+4*r10]
+                mov ebx, DWORD [rdi+4*r9]
+                cmp eax, ebx
+                ja _i_loop
+                dec r9
+                jmp _j_loop
+
+            _i_loop:
+                cmp r8, r9
+                je _swap_ok
+                mov eax, DWORD [rdi+4*r10]
+                mov ebx, DWORD [rdi+4*r8]
+                cmp eax, ebx
+                jb _swap
+                inc r8
+                jmp _i_loop
+            _swap:
+                mov rdi, array
+                mov rsi, r8
+                mov rdx, r9
+                call swap
+                jmp _main_loop
+        
+        _swap_ok:
+            mov rdi, array
+            mov rsi, r10
+            mov rdx, r9
+            call swap
+
+            mov rdi, array
+            mov rsi, r10
+            mov rdx, r8
+            dec rdx
+
+            push r8
+            push r9
+            push r10
+            push r11
+
+            call quicksort
+
+            pop r11
+            pop r10
+            pop r9
+            pop r8
+
+            mov rdi, array
+            mov rsi, r8
+            inc rsi
+            mov rdx, r11
+
+            push r8
+            push r9
+            push r10
+            push r11
+
+            call quicksort
+
+            pop r11
+            pop r10
+            pop r9
+            pop r8
+
+        
+        _ret:
+            ret
+
+    _exit:
+        mov rax, 60
+        xor rdi, rdi
+        syscall
